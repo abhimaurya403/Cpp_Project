@@ -1,5 +1,7 @@
 
 #include<bits/stdc++.h>
+
+
 using namespace std;
 
 
@@ -12,16 +14,17 @@ class Student{
        string student_blood_group;
        string DOB;                 
        char gender;
-       void setStudentDetails();
+       void setStudentDetails(std::vector<int> &);
        void getStudentDetails();
        bool isNumber(const std::string &s) {
          return !s.empty() && std::all_of(s.begin(), s.end(), ::isdigit);
       }
+      
 };
 
 // Here we are taking the student details 
 
-void Student::setStudentDetails(){
+void Student::setStudentDetails(vector<int> &vec_stud_id){
 
     cout<<"\n\n--------WELCOME TO THE REGISTRATION PORTAL--------"<<endl;
     cout<<endl;
@@ -31,6 +34,15 @@ void Student::setStudentDetails(){
         cout<<"\n Enter Student ID : ";
         cin.sync();
         cin>>student_id;
+        vec_stud_id.push_back(student_id);
+        for(int i=0;i<vec_stud_id.size()-1;i++){
+          if(student_id==vec_stud_id[i]){
+            cout<<"ID Already Exist !! Please Enter New ID "<<endl;
+            flag5=true;
+            break;
+          }
+        }
+    
         if(cin.fail())
             {
                 flag5=true;
@@ -146,7 +158,7 @@ class Modules:public Student{     // Class Module Inherit properties of Student 
       int module_duration;
       float module_fees;
       string module_start_date;
-      void setModuleDetails();
+      void setModuleDetails(std::vector<int> &);
       void getModuleDetails();
 };
 
@@ -154,7 +166,7 @@ class Modules:public Student{     // Class Module Inherit properties of Student 
 
 // Here we are taking the Modules details 
 
-void Modules :: setModuleDetails(){
+void Modules :: setModuleDetails(vector<int> & vec_mod_id){
 
     cout<<"\n\n--------ADD THE MODULES HERE--------"<<endl;
     bool flag_a=false,flag_b=false,flag_c=false,flag_d=false,flag_e=false,flag_f=false,flag_g=false;
@@ -163,6 +175,14 @@ void Modules :: setModuleDetails(){
           cout<<"\n Enter Module ID : ";
           cin.sync();
           cin>>module_ID;
+          vec_mod_id.push_back(module_ID);
+          for(int i=0;i<vec_mod_id.size()-1;i++){
+            if(module_ID==vec_mod_id[i]){
+              cout<<"ID Already Exist !! Please Enter New ID "<<endl;
+              flag_a=true;
+              break;
+            }
+          }
         if(cin.fail())
             {
                 flag_a=true;
@@ -259,7 +279,7 @@ void Modules :: getModuleDetails(){
     cout<<endl;
 }
 
-
+ 
 
 
 // Main Function Starts here............
@@ -289,6 +309,9 @@ int main(){
    float mod_fee;
    char gen;
    bool flag1=0,flag2=0,flag3=0,flag4=0;
+   vector<int> vec_id;
+   vector<int> vec_mod_id;
+
 
 
    do{
@@ -311,12 +334,13 @@ int main(){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             cout<<endl;
-            cout<<"NOT A VALID INPUT !!! PLEASE ENTER THE VALID INPUT"<<endl<<endl;            
+            cout<<"NOT A VALID OPTION SELECTED !!! PLEASE SELECT THE VALID OPTION"<<endl<<endl;            
         }
       switch(choice){
         
           case 1:
-             module[student_count].setStudentDetails();
+             
+             module[student_count].setStudentDetails(vec_id);
              student_count++;
              break;
 
@@ -445,7 +469,7 @@ int main(){
              break;
 
           case 5:
-             module[module_count].setModuleDetails();
+             module[module_count].setModuleDetails(vec_mod_id);
              module_count++;
              break;
 
@@ -576,13 +600,14 @@ int main(){
 
 /* TESTING 
 
-1- If we are entering other than digits that are shown for selecting the options then program will give
+1- if user enter ID that are already stored in record then program will give an error messsage.
+2- If we are entering other than digits that are shown for selecting the options then program will give
    an error message.
-2- If user enters input in other data type that are not compatible with defined data type then an
+3- If user enters input in other data type that are not compatible with defined data type then an
    error message will be shown until user not give the correct input.
-3- If any record are not added(like student details or module details) yet and if user wants to search any
+4- If any record are not added(like student details or module details) yet and if user wants to search any
    record or update any record then an error message will be shown.
-4- if user wants to search or update any particular record then if user enters wrong ID that are not available
+5- if user wants to search or update any particular record then if user enters wrong ID that are not available
    then an error messsage will be shown.  
 
 */
