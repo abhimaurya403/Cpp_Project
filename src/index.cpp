@@ -34,6 +34,17 @@ void Student::setStudentDetails(vector<int> &vec_stud_id){
         cout<<"\n Enter Student ID : ";
         cin.sync();
         cin>>student_id;
+          if(cin.fail())
+            {
+                flag5=true;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                cout<<endl;
+                cout<<"NOT A VALID INPUT !!! PLEASE ENTER THE VALID INPUT"<<endl<<endl;            
+            }
+
+        // for checking that ID already exist or not
+
         vec_stud_id.push_back(student_id);
         for(int i=0;i<vec_stud_id.size()-1;i++){
           if(student_id==vec_stud_id[i]){
@@ -42,16 +53,7 @@ void Student::setStudentDetails(vector<int> &vec_stud_id){
             break;
           }
         }
-    
-        if(cin.fail())
-            {
-                flag5=true;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                cout<<endl;
-                cout<<"NOT A VALID INPUT !!! PLEASE ENTER THE VALID INPUT"<<endl<<endl;            
-            }
-          flag5=!flag5;
+        flag5=!flag5;
     };
 
     while(!flag6){
@@ -309,6 +311,7 @@ int main(){
    float mod_fee;
    char gen;
    bool flag1=0,flag2=0,flag3=0,flag4=0;
+   
    vector<int> vec_id;
    vector<int> vec_mod_id;
 
@@ -351,9 +354,15 @@ int main(){
                 break;
               }
             do{
-              cout<<"\n Enter Student ID : ";
-              cin>>stud_ID;
-              for(int i=0;i<student_count;i++){
+                cout<<"\n Enter Student ID : ";
+                cin>>stud_ID;
+                for(int i=0;i<student_count;i++){
+                  if(cin.fail())
+                        {
+                          cin.clear();
+                          cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                          cout<<endl;           
+                        }
                 if(stud_ID == module[i].student_id){
                     flag3=1;
                     do{
@@ -447,6 +456,12 @@ int main(){
                 cout<<"\n Enter Student ID : ";
                 cin>>stud_ID;
                 for(int i=0;i<student_count;i++){
+                   if(cin.fail())
+                      {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                        cout<<endl;           
+                      }
                 if(stud_ID == module[i].student_id){
                     flag1=1;
                     module[i].getStudentDetails();
@@ -480,19 +495,26 @@ int main(){
                 break;
               }
               do{
-              cout<<"\n Enter Module ID : ";
-              cin>>Mod_ID;
-              for(int i=0;i<module_count;i++){
-                if(Mod_ID == module[i].module_ID){
-                    flag2=1;
-                    module[i].getModuleDetails();
-                }
-              }
-              if(flag2==0){
-                cout<<"Not a Valid ID !! Please Enter Valid ID "<<endl;
-              }
-            }while(flag2!=1);
-             break;
+
+                 cout<<"\n Enter Module ID : ";
+                 cin>>Mod_ID;
+                  for(int i=0;i<module_count;i++){
+                    if(cin.fail())
+                          {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                            cout<<endl;           
+                          }
+                      if(Mod_ID == module[i].module_ID){
+                          flag2=1;
+                          module[i].getModuleDetails();
+                      }
+                    }
+                    if(flag2==0){
+                      cout<<"Not a Valid ID !! Please Enter Valid ID "<<endl;
+                    }
+                } while(flag2!=1);
+                  break;
 
             case 7:
               int update_details2;
@@ -501,10 +523,17 @@ int main(){
                 break;
               }
             do{
-              cout<<"\n Enter Module ID : ";
-              cin>>M_ID;
-              for(int i=0;i<module_count;i++){
-                if(M_ID == module[i].module_ID){
+                 cout<<"\n Enter Module ID : ";
+                 cin>>Mod_ID;
+                
+                for(int i=0;i<module_count;i++){
+                  if(cin.fail())
+                        {
+                          cin.clear();
+                          cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                          cout<<endl;           
+                        }
+                if(Mod_ID == module[i].module_ID){
                     flag4=1;
                     do{
                      cout<<"\n\n 1> Module Name  ";
